@@ -1,7 +1,8 @@
 const express = require('express'),
     http = require('http'),
     morgan = require('morgan'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    dishRouter = require('./routes/dishRouter');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -12,47 +13,7 @@ app.use(morgan('dev'));
 
 app.use(bodyParser.json());
 
-app.all('/dishes', (req,res,next) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  next();
-});
-
-app.get('/dishes', (req,res,next) => {
-    res.end("Vous enverra tous les 'dishes'!");
-});
-
-app.get('/dishes/:dishId', (req,res,next) => {
-    res.end("Vous enverra le détail du 'dish' " + req.params.dishId);
-});
-
-app.post('/dishes', (req, res, next) => {
- res.end("Ajoutera le 'dish' " + req.body.name + ' avec comme détail : ' + req.body.description);
-});
-
-app.post('/dishes/:dishId', (req, res, next) => {
-    res.statusCode = 403;
-    res.end("L'opération POST n'est pas supportée sur /dishes/"+ req.params.dishId);
-});
-
-app.put('/dishes', (req, res, next) => {
-  res.statusCode = 403;
-  res.end("L'opération PUT n'est pas supportée sur /dishes");
-});
-
-app.put('/dishes/:dishId', (req, res, next) => {
-  res.write('Mise à jour du dish: ' + req.params.dishId + '\n');
-  res.end('Mettra à jour le dish: ' + req.body.name + 
-        ' avec le détail : ' + req.body.description);
-});
- 
-app.delete('/dishes', (req, res, next) => {
-    res.end("Supprime tous les 'dishes'");
-});
-
-app.delete('/dishes/:dishId', (req, res, next) => {
-    res.end('Suppression du dish: ' + req.params.dishId);
-});
+app.use('/dishes', dishRouter);
 
 app.use(express.static(__dirname + '/public'));
 
