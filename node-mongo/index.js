@@ -22,11 +22,10 @@ MongoClient.connect(url).then((client) => {
 
             return dboper.updateDocument(db, { name: "Vadonut" },
                     { description: "Updated Test" }, "dishes");
-
         })
         .then((result) => {
             console.log("Updated Document:\n", result.result);
-
+            
             return dboper.findDocuments(db, "dishes");
         })
         .then((docs) => {
