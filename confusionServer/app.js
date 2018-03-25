@@ -14,18 +14,12 @@ var leaderRouter = require('./routes/leaderRouter');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-const Dishes = require('./models/dishes');
-
-// Connection URL
 const url = 'mongodb://localhost:27017/conFusion';
-const connect = mongoose.connect(url, {
-    useMongoClient: true,
-    /* other options */
-  });
-
-connect.then((db) => {
-    console.log("Connected correctly to server");
-}, (err) => { console.log(err); });
+const connect = mongoose.connect(url);
+// Connection URL
+connect.then((client) => {
+    console.log('Connected correctly to server');
+});
 
 var app = express();
 
