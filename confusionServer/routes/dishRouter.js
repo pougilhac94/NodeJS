@@ -213,7 +213,6 @@ dishRouter.route('/:dishId/comments/:commentId')
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         var id1 = dish.comments.id(req.params.commentId).author;
-        console.log('id1 '+id1+' - ' +req.user.id);
         if (dish != null && dish.comments.id(req.params.commentId) != null && id1.equals(req.user.id)) {
             dish.comments.id(req.params.commentId).remove();
             dish.save()
