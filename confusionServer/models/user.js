@@ -11,9 +11,13 @@ var User = new Schema({
       type: String,
         default: ''
     },
-    admin:   {
+    admin: {
         type: Boolean,
         default: false
+    },
+    user: {
+        type: Boolean,
+        default: true
     }
 });
 
